@@ -131,9 +131,6 @@ func cleanupOutput(img []byte, format string) []byte {
 	case format == "png":
 		decoded, err := png.Decode(bytes.NewReader(img))
 		for err != nil {
-			if len(img) < 2 {
-				break
-			}
 			img = img[1:]
 			if len(img) == 0 {
 				break
@@ -143,6 +140,7 @@ func cleanupOutput(img []byte, format string) []byte {
 		png.Encode(buf, decoded)
 		return buf.Bytes()
 	case format == "jpg":
+	case format == "jpeg":
 		decoded, err := jpeg.Decode(bytes.NewReader(img))
 		for err != nil {
 			img = img[1:]
